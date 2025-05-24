@@ -6,11 +6,10 @@ function App() {
   return (
     <div>
       <div>
-        <Navbar>
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </Navbar>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
       </div>
     </div>
   );
