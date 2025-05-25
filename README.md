@@ -1,54 +1,82 @@
-# React + TypeScript + Vite
+  <h1 align="center">Build a Modern Social Media Website</h1>
+  <div>
+    <img src="https://img.shields.io/badge/-React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+    <img src="https://img.shields.io/badge/-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+    <img src="https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/-Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
+    <img src="https://img.shields.io/badge/-TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+  </div>
+  <br />
+</div>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ⚙️ Tech Stack
 
-Currently, two official plugins are available:
+- **React** for building the user interface
+- **Vite** for fast development and build processes
+- **TypeScript** for type safety and modern JavaScript features
+- **Supabase** for backend services including authentication, real-time data, and storage
+- **Tailwind CSS** for rapid and responsive styling
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ⚡️ Features
 
-## Expanding the ESLint configuration
+- **User Authentication via GitHub:**  
+  Securely sign in with GitHub and display user avatars and usernames across the site.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Post Creation with Image Uploads:**  
+  Create posts with rich content and optional image uploads, complete with the creator’s profile picture.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Dynamic Voting System:**  
+  Thumbs up and thumbs down buttons with subtle white glow effects to indicate your vote.
+
+- **Robust Commenting System:**  
+  Engage in threaded discussions with nested replies, each showing the commenter’s username and timestamp.
+
+- **Community & Category Support:**  
+  Build a Reddit-like experience where posts are organized by communities, with posts displayed in a responsive grid.
+
+- **Real-Time Data Updates:**  
+  All interactions (posting, voting, commenting) update in real time using Supabase and React Query.
+
+## 👌 Quick Start
+
+### Prerequisites
+
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/)
+
+### Cloning the Repository
+
+Run the following commands in your terminal:
+
+```bash
+git clone
+cd social-media
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Installation
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Install the dependencies:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
 ```
+
+### Environment Variables
+
+Create a file named `.env` in the project root and add your Supabase credentials and other configuration values:
+
+```env
+VITE_SUPABASE_URL=https://your-supabase-url.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
+```
+
+### Running the Project
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
