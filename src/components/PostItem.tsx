@@ -28,6 +28,7 @@ export const PostItem = ({ post }: Props) => {
               </div>
             </div>
           </div>
+
           {/* Image Banner */}
           <div className="mt-2 flex-1">
             <img
@@ -35,6 +36,14 @@ export const PostItem = ({ post }: Props) => {
               alt={post.title}
               className="w-full rounded-[20px] object-cover max-h-[150px] mx-auto"
             />
+          </div>
+          <div className="flex justify-around items-center">
+            <span className="cursor-pointer h-10 w-[50px] px-1 flex items-center justify-center font-extrabold rounded-lg">
+              ❤️ <span className="ml-2">{post.like_count ?? 0}</span>
+            </span>
+            <span className="cursor-pointer h-10 w-[50px] px-1 flex items-center justify-center font-extrabold rounded-lg">
+              💬 <span className="ml-2">{post.comment_count ?? 0}</span>
+            </span>
           </div>
         </div>
       </Link>
