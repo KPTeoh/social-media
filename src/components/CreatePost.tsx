@@ -1,17 +1,19 @@
-import { useMutation } from "@tanstack/react-query";
-import { useState, type ChangeEvent } from "react";
+import { type ChangeEvent, useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { supabase } from "../supabase-client";
 import { useAuth } from "../context/AuthContext";
+import { fetchCommunities, type Community } from "./CommunityList";
 
 interface PostInput {
   title: string;
   content: string;
   avatar_url: string | null;
-  //   community_id?: number | null;
+  community_id?: number | null;
 }
 
 const createPost = async (post: PostInput, imageFile: File) => {
   const filePath = `${post.title}-${Date.now()}-${imageFile.name}`;
+
   const { error: uploadError } = await supabase.storage
     .from("post-images")
     .upload(filePath, imageFile);
@@ -34,11 +36,18 @@ const createPost = async (post: PostInput, imageFile: File) => {
 export const CreatePost = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [communityId, setCommunityId] = useState<number | null>(null);
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const { user } = useAuth();
 
-  const { mutate, isError, isPending } = useMutation({
+  const { data: communities } = useQuery<Community[], Error>({
+    queryKey: ["communities"],
+    queryFn: fetchCommunities,
+  });
+
+  const { mutate, isPending, isError } = useMutation({
     mutationFn: (data: { post: PostInput; imageFile: File }) => {
       return createPost(data.post, data.imageFile);
     },
@@ -52,9 +61,15 @@ export const CreatePost = () => {
         title,
         content,
         avatar_url: user?.user_metadata.avatar_url || null,
+        community_id: communityId,
       },
       imageFile: selectedFile,
     });
+  };
+
+  const handleCommunityChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setCommunityId(value ? Number(value) : null);
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -91,6 +106,19 @@ export const CreatePost = () => {
           required
         />
       </div>
+
+      <div>
+        <label> Select Community</label>
+        <select id="community" onChange={handleCommunityChange}>
+          <option value={""}> -- Choose a Community -- </option>
+          {communities?.map((community, key) => (
+            <option key={key} value={community.id}>
+              {community.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div>
         <label htmlFor="image" className="block mb-2 font-medium">
           Upload Image
@@ -100,7 +128,7 @@ export const CreatePost = () => {
           id="image"
           accept="image/*"
           onChange={handleFileChange}
-          className="w-full border border-white/10 bg-transparent p-2 rounded"
+          className="w-full text-gray-200"
         />
       </div>
       <button
@@ -109,6 +137,7 @@ export const CreatePost = () => {
       >
         {isPending ? "Creating..." : "Create Post"}
       </button>
+
       {isError && <p className="text-red-500"> Error creating post.</p>}
     </form>
   );
